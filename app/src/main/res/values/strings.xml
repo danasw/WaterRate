@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">WateRATE</string>
+    <string name="action_settings">Settings</string>
+    <string name="refresh_action">Refresh</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="nav_item_home">WateRATE</string>
+    <string name="nav_item_friends">Settings</string>
+    <string name="nav_item_notifications">Tentang Kami</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_friends</item>
+        <item>@string/nav_item_notifications</item>
+    </string-array>
+
+    <string name="title_about">Tentang Kami</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_waterate">WateRATE</string>
+    <string name="title_kran">Kran Air</string>
+    
+    <!--text nggo syarat-->
+    <string name="isi_syarat">
+        Jumlah anggota keluarga akan mempengaruhi banyaknya debit air penggunaan maksimal pada setiap harinya. Data bersifat <b>permanen</b> dan <b>tidak dapat dirubah</b> dikemudian hari.
+    </string>
+
+    <!--login logout-->
+    <string name="isi_login">
+        Tidak mempunyai akun? <u>Buat sekarang</u>
+    </string>
+    <string name="isi_signup">
+        Sudah punya akun? <u>Login sekarang</u>
+    </string>
+
+</resources>

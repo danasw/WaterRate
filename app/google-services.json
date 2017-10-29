@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "907529162926",
+    "firebase_url": "https://waterate-1b3f0.firebaseio.com",
+    "project_id": "waterate-1b3f0",
+    "storage_bucket": "waterate-1b3f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:907529162926:android:0785356dd347d7a9",
+        "android_client_info": {
+          "package_name": "project.waterate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "907529162926-cvneb1oskm1n8ubcsmdb8tkjiupl5m49.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "project.waterate",
+            "certificate_hash": "caa122e6c8ab11fb71f215ff0d8ae6bf3343d7b9"
+          }
+        },
+        {
+          "client_id": "907529162926-umgh12mh8ppugudkocrl84nmpp7s7jsi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRaMpXH5I8coLw5TTBBJIyqFhxwb_Q-AA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "907529162926-umgh12mh8ppugudkocrl84nmpp7s7jsi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

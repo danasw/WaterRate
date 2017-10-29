@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#40c4ff</color>
+    <color name="colorPrimaryDark">#0094cc</color>
+    <color name="colorPrimaryLight">#82f7ff</color>
+    <!--warnane teks ireng kabeh, min 53% opacity nggo teks gede, min 73% opacity nggo teks cilik-->
+
+    <color name="colorSecondary">#757575</color>
+    <color name="colorSecondaryDark">#494949</color>
+    <color name="colorSecondaryLight">#a4a4a4</color>
+    <!--secondary min 66% opac teks gede, 98% opac teks cilik, teks putih-->
+    <!--secondarylight min 48% opac teks gede, 65% opac teks cilik, teks ireng-->
+    <!--secondary min 42% opac teks gede, 61% opac teks cilik, teks putih-->
+    
+    <color name="colorBunder1">#0094cc</color>
+    <color name="colorBunder2">#8200cc</color>
+    <color name="colorBunder3">#cc009a</color>
+    <color name="colorBunder4">#cc0000</color>
+
+    <color name="textColorHitam">#000000</color>
+    <color name="textColorPutih">#ffffff</color>
+
+    <color name="windowsBackground">#f2f2f1</color>
+    <color name="navigationBarColor">#56b1bf</color>
+    <color name="colorAccent">#d73a31</color>
+    <color name="colorTextUmum">#424242</color>
+    <color name="colorMuda">#e7e3e3</color>
+    <color name="colorCerah">#ff0d15</color>
+    <color name="colorCerahMax">#ff0004</color>
+    <color name="colorSyarat">#949494</color>
+
+</resources>
