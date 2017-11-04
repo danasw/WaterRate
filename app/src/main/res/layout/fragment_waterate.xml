@@ -1,458 +1,451 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/windowsBackground"
-    tools:context="activity.WaterateFragment">
-
-    <!--GRAFIK-->
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view_grafik"
+        xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="activity.WaterateFragment"
+        android:id="@+id/linearinti"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        card_view:cardElevation="2dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/windowsBackground">
 
-        <LinearLayout
-            android:id="@+id/linelay_grafik"
+        <!--GRAFIK-->
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view_grafik"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!--GRAFIK PENGGUNAAN AIR BERSIH-->
-            <TextView
-                android:id="@+id/judul_grafik"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:text="Grafik Penggunaan Air Bersih"
-                android:textSize="18dp"
-                android:fontFamily="sans-serif-condensed"
-                android:textAlignment="center" />
-
-            <View
-                android:id="@+id/view_grafik"
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:background="#d0d3c5"></View>
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            card_view:cardElevation="2dp"
+            card_view:cardUseCompatPadding="true">
 
             <LinearLayout
-                android:id="@+id/linlay_grafik"
+                android:id="@+id/linelay_grafik"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <!--Chart bunder-->
-                <android.support.v7.widget.CardView
-                    android:id="@+id/card_grafik"
+                <!--GRAFIK PENGGUNAAN AIR BERSIH-->
+                <TextView
+                    android:id="@+id/judul_grafik"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Grafik Penggunaan Air Bersih"
+                    android:textSize="18dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="@color/textColorPutih"
+                    android:padding="4dp"
+
+                    android:background="@color/colorPrimaryDark"
+                    android:textAlignment="center"/>
+
+                <LinearLayout
+                    android:id="@+id/linlay_grafik"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.2"
-                    card_view:cardElevation="0dp">
+                    android:orientation="horizontal">
 
-                    <at.grabner.circleprogress.CircleProgressView
-                        android:id="@+id/circleView"
+                    <!--Chart bunder-->
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_grafik"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_margin="8dp"
-                        CircleProgressView:cpv_autoTextSize="true"
-                        CircleProgressView:cpv_barColor="@color/colorPrimary"
-                        CircleProgressView:cpv_barWidth="30dp"
-                        CircleProgressView:cpv_innerContourSize="0dp"
-                        CircleProgressView:cpv_maxValue="100"
-                        CircleProgressView:cpv_outerContourSize="0dp"
-                        CircleProgressView:cpv_rimColor="@color/windowsBackground"
-                        CircleProgressView:cpv_rimWidth="30dp"
-                        CircleProgressView:cpv_seekMode="true"
-                        CircleProgressView:cpv_showUnit="true"
-                        CircleProgressView:cpv_spinColor="@color/colorAccent"
-                        CircleProgressView:cpv_textColor="@color/colorTextUmum"
-                        CircleProgressView:cpv_textScale="0.6"
-                        CircleProgressView:cpv_unit="%"
-                        CircleProgressView:cpv_unitColor="@color/colorTextUmum"
-                        CircleProgressView:cpv_unitPosition="right_bottom"
-                        CircleProgressView:cpv_unitScale="1"
-                        CircleProgressView:cpv_value="0" />
+                        android:layout_weight="1.2"
+                        card_view:cardElevation="0dp">
 
-                </android.support.v7.widget.CardView>
-
-                <!--Text samping chart-->
-                <android.support.v7.widget.CardView
-                    android:id="@+id/card_isigrafik"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    card_view:cardElevation="0dp">
-
-                    <LinearLayout
-                        android:id="@+id/linlay_penggunaan"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:orientation="vertical">
-
-                        <TextView
+                        <at.grabner.circleprogress.CircleProgressView
+                            android:id="@+id/circleView"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="3dp"
-                            android:layout_weight="1.7"
-                            android:gravity="bottom"
-                            android:fontFamily="sans-serif"
-                            android:text="Penggunaan Hari Ini :" />
+                            android:layout_gravity="center"
+                            android:layout_margin="8dp"
+                            CircleProgressView:cpv_autoTextSize="true"
+                            CircleProgressView:cpv_barColor="@color/colorPrimary"
+                            CircleProgressView:cpv_barWidth="30dp"
+                            CircleProgressView:cpv_innerContourSize="0dp"
+                            CircleProgressView:cpv_maxValue="100"
+                            CircleProgressView:cpv_outerContourSize="0dp"
+                            CircleProgressView:cpv_rimColor="@color/windowsBackground"
+                            CircleProgressView:cpv_rimWidth="30dp"
+                            CircleProgressView:cpv_seekMode="true"
+                            CircleProgressView:cpv_showUnit="true"
+                            CircleProgressView:cpv_spinColor="@color/colorAccent"
+                            CircleProgressView:cpv_textColor="@color/colorTextUmum"
+                            CircleProgressView:cpv_textScale="0.6"
+                            CircleProgressView:cpv_unit="%"
+                            CircleProgressView:cpv_unitColor="@color/colorTextUmum"
+                            CircleProgressView:cpv_unitPosition="right_bottom"
+                            CircleProgressView:cpv_unitScale="1"
+                            CircleProgressView:cpv_value="0" />
+
+                    </android.support.v7.widget.CardView>
+
+                    <!--Text samping chart-->
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_isigrafik"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        card_view:cardElevation="0dp">
 
                         <LinearLayout
-                            android:id="@+id/linlay_konsumsi"
+                            android:id="@+id/linlay_penggunaan"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1.5"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="3dp"
-                                android:background="@drawable/box_konsumsi"
-                                android:padding="5dp">
-
-                                <TextView
-                                    android:id="@+id/konsumsi_sekarang"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="top"
-                                    android:text="180"
-                                    android:fontFamily="sans-serif"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:gravity="top"
-                                    android:fontFamily="sans-serif"
-                                    android:text="L" />
-
-
-                            </LinearLayout>
+                            android:layout_margin="5dp"
+                            android:orientation="vertical">
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:gravity="top"
-                                android:text="/" />
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="3dp"
+                                android:layout_weight="1.7"
+                                android:gravity="bottom"
+                                android:fontFamily="sans-serif"
+                                android:text="Penggunaan Hari Ini :" />
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="3dp"
-                                android:background="@drawable/box_konsumsi"
-                                android:padding="5dp">
+                                android:id="@+id/linlay_konsumsi"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.5"
+                                android:orientation="horizontal">
 
-                                <TextView
-                                    android:id="@+id/konsumsi_maksimal"
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:gravity="top"
-                                    android:text="250"
-                                    android:fontFamily="sans-serif"/>
+                                    android:layout_margin="3dp"
+                                    android:background="@drawable/box_konsumsi"
+                                    android:padding="5dp">
+
+                                    <TextView
+                                        android:id="@+id/konsumsi_sekarang"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="top"
+                                        android:fontFamily="sans-serif"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:gravity="top"
+                                        android:fontFamily="sans-serif"
+                                        android:text="L" />
+
+
+                                </LinearLayout>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
+                                    android:layout_margin="5dp"
                                     android:gravity="top"
-                                    android:fontFamily="sans-serif"
-                                    android:text="L" />
+                                    android:text="/" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="3dp"
+                                    android:background="@drawable/box_konsumsi"
+                                    android:padding="5dp">
+
+                                    <TextView
+                                        android:id="@+id/konsumsi_maksimal"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="top"
+                                        android:text=""
+                                        android:fontFamily="sans-serif"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:gravity="top"
+                                        android:fontFamily="sans-serif"
+                                        android:text="L" />
+
+                                </LinearLayout>
 
                             </LinearLayout>
 
-                        </LinearLayout>
-
-                        <View
-                            android:id="@+id/view_penggunaan"
-                            android:layout_width="fill_parent"
-                            android:layout_height="2dp"
-                            android:background="#d0d3c5"></View>
-
-                        <LinearLayout
-                            android:id="@+id/linlay_emergency"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:id="@+id/image_emergency"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="2.8"
-                                android:src="@drawable/ic_seru"
-                                android:tint="@color/windowsBackground" />
+                            <View
+                                android:id="@+id/view_penggunaan"
+                                android:layout_width="fill_parent"
+                                android:layout_height="2dp"
+                                android:background="#d0d3c5"></View>
 
                             <LinearLayout
-                                android:id="@+id/linlay_text_emergency"
+                                android:id="@+id/linlay_emergency"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:orientation="vertical">
+                                android:orientation="horizontal">
 
-                                <TextView
-                                    android:id="@+id/text_emergency1"
+                                <ImageView
+                                    android:id="@+id/image_emergency"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_margin="1dp"
-                                    android:layout_weight="1"
-                                    android:gravity="bottom"
-                                    android:text="Melebihi Batas"
-                                    android:textColor="@color/colorMuda" />
+                                    android:layout_weight="2.8"
+                                    android:src="@drawable/ic_seru"
+                                    android:tint="@color/windowsBackground" />
 
-                                <TextView
-                                    android:id="@+id/text_emergency2"
+                                <LinearLayout
+                                    android:id="@+id/linlay_text_emergency"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_margin="1dp"
                                     android:layout_weight="1"
-                                    android:gravity="top"
-                                    android:text="Penggunaan Harian"
-                                    android:textColor="@color/colorMuda" />
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/text_emergency1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginBottom="1dp"
+                                        android:layout_marginLeft="4dp"
+                                        android:layout_weight="1"
+                                        android:gravity="bottom"
+                                        android:text="Melebihi Batas"
+                                        android:textColor="@color/colorMuda" />
+
+                                    <TextView
+                                        android:id="@+id/text_emergency2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginTop="1dp"
+                                        android:layout_marginLeft="4dp"
+                                        android:layout_weight="1"
+                                        android:gravity="top"
+                                        android:text="Penggunaan Harian"
+                                        android:textColor="@color/colorMuda" />
+
+                                </LinearLayout>
 
                             </LinearLayout>
 
                         </LinearLayout>
 
-                    </LinearLayout>
+                    </android.support.v7.widget.CardView>
 
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </android.support.v7.widget.CardView>
 
-    </android.support.v7.widget.CardView>
-
-    <!--RIWAYAT-->
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view_riwayat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/card_margin"
-        android:layout_weight="1"
-        card_view:cardElevation="2dp">
-
-        <LinearLayout
-            android:id="@+id/linelay_riwayat"
+        <!--RIWAYAT-->
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view_riwayat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_margin"
+            android:layout_weight="1"
+            card_view:cardElevation="2dp"
+            card_view:cardUseCompatPadding="true">
 
-            <TextView
-                android:id="@+id/judul_riwayat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:text="Riwayat Penggunaan Air Bersih"
-                android:textSize="18dp"
-                android:fontFamily="sans-serif-condensed"
-                android:textAlignment="center" />
-
-            <View
-                android:id="@+id/view_riwayat"
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:background="#d0d3c5"></View>
-
-            <lecho.lib.hellocharts.view.LineChartView
-                android:id="@+id/chart_riwayat"
+            <LinearLayout
+                android:id="@+id/linelay_riwayat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/judul_riwayat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Riwayat Penggunaan Air Bersih"
+                    android:textSize="18dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="@color/textColorPutih"
+                    android:padding="4dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:textAlignment="center" />
+
+                <lecho.lib.hellocharts.view.LineChartView
+                    android:id="@+id/chart_riwayat"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="5dp"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <!--KUALITAS AIR + KONTROL KRAN-->
+        <LinearLayout
+            android:id="@+id/linlay_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp">
+
+            <!--PH-->
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_ph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_margin"
+                android:layout_weight="1"
+                card_view:cardElevation="2dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:id="@+id/linlay_ph"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/judul_ph"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="18dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textColor="@color/textColorPutih"
+                        android:padding="4dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:text="pH" />
+
+                    <TextView
+                        android:id="@+id/output_ph"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text=""
+                        android:fontFamily="sans-serif"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--SUHU-->
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_suhu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_margin"
+                android:layout_weight="1"
+                card_view:cardElevation="2dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:id="@+id/linlay_suhu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/judul_suhu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="18dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textColor="@color/textColorPutih"
+                        android:padding="4dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:text="Suhu" />
+
+                    <TextView
+                        android:id="@+id/output_suhu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text=""
+                        android:fontFamily="sans-serif"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--KONDUKTIVITAS-->
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_konduktivitas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_margin"
+                android:layout_weight="1"
+                card_view:cardElevation="2dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:id="@+id/linlay_konduktivitas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/judul_konduktivitas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Konduktivitas"
+                        android:textSize="18dp"
+                        android:textColor="@color/textColorPutih"
+                        android:padding="4dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:fontFamily="sans-serif-condensed" />
+
+                    <TextView
+                        android:id="@+id/output_konduktivitas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text=""
+                        android:fontFamily="sans-serif"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--BUTTON KRAN-->
+            <ImageView
+                android:id="@+id/button_kran"
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:layout_margin="5dp"
-                android:padding="20dp" />
+                android:src="@drawable/kran"
+                android:scaleType="fitXY"
+                android:background="@drawable/pinggirbunder"
+                android:elevation="2dp"
+                android:cropToPadding="true"/>
+
+            <!--BUTTON AIR-->
+            <ImageView
+                android:id="@+id/button_air"
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:src="@drawable/air"
+                android:scaleType="fitXY"
+                android:background="@drawable/pinggirbunder"
+                android:elevation="2dp"
+                android:cropToPadding="true"/>
 
         </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
-    <!--KUALITAS AIR + KONTROL KRAN-->
-    <LinearLayout
-        android:id="@+id/linlay_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:layout_marginBottom="5dp">
-
-        <!--PH-->
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_ph"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/card_margin"
-            android:layout_weight="1"
-            card_view:cardElevation="2dp">
-
-            <LinearLayout
-                android:id="@+id/linlay_ph"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/judul_ph"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="4dp"
-                    android:textSize="18dp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="pH" />
-
-                <View
-                    android:id="@+id/view_ph"
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:background="#c0c0c0"></View>
-
-                <TextView
-                    android:id="@+id/output_ph"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="20dp"
-                    android:text="0"
-                    android:fontFamily="sans-serif"/>
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <!--SUHU-->
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_suhu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/card_margin"
-            android:layout_weight="1"
-            card_view:cardElevation="2dp">
-
-            <LinearLayout
-                android:id="@+id/linlay_suhu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/judul_suhu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="4dp"
-                    android:textSize="18dp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="Suhu" />
-
-                <View
-                    android:id="@+id/view_suhu"
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:background="#d0d3c5"></View>
-
-                <TextView
-                    android:id="@+id/output_suhu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="20dp"
-                    android:text="0"
-                    android:fontFamily="sans-serif"/>
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <!--KONDUKTIVITAS-->
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_konduktivitas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/card_margin"
-            android:layout_weight="1"
-            card_view:cardElevation="2dp">
-
-            <LinearLayout
-                android:id="@+id/linlay_konduktivitas"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/judul_konduktivitas"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="4dp"
-                    android:text="Konduktivitas"
-                    android:textSize="18dp"
-                    android:fontFamily="sans-serif-condensed" />
-
-                <View
-                    android:id="@+id/view_konduktivitas"
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:background="#d0d3c5"></View>
-
-                <TextView
-                    android:id="@+id/output_konduktivitas"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="20dp"
-                    android:text="0"
-                    android:fontFamily="sans-serif"/>
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <!--BUTTON KRAN-->
-        <ImageView
-            android:id="@+id/button_kran"
-            android:layout_width="55dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:src="@drawable/kran"
-            android:scaleType="fitXY"
-            android:background="@drawable/pinggirbunder"
-            android:elevation="2dp" />
-
-        <!--BUTTON AIR-->
-        <ImageView
-            android:id="@+id/button_air"
-            android:layout_width="55dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:src="@drawable/air"
-            android:scaleType="fitXY"
-            android:background="@drawable/pinggirbunder"
-            android:elevation="2dp" />
-
-    </LinearLayout>
 
 </LinearLayout>

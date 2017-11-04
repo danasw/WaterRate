@@ -3,6 +3,7 @@
     <color name="colorPrimary">#40c4ff</color>
     <color name="colorPrimaryDark">#0094cc</color>
     <color name="colorPrimaryLight">#82f7ff</color>
+    <color name="colorPrimaryaaDark">#0094cc</color>
     <!--warnane teks ireng kabeh, min 53% opacity nggo teks gede, min 73% opacity nggo teks cilik-->
 
     <color name="colorSecondary">#757575</color>
@@ -28,5 +29,17 @@
     <color name="colorCerah">#ff0d15</color>
     <color name="colorCerahMax">#ff0004</color>
     <color name="colorSyarat">#949494</color>
+    <color name="Hitam">#838282</color>
+    <color name="colorDrawer">#88c6de</color>
+
+    //refresh
+    <string-array name="movie_serial_bg">
+        <item>#24c6d5</item>
+        <item>#57dd86</item>
+        <item>#ad7dcf</item>
+        <item>#ff484d</item>
+        <item>#fcba59</item>
+        <item>#24c6d5</item>
+    </string-array>
 
 </resources>

@@ -5,21 +5,36 @@
     android:background="@android:color/white"
     android:elevation="16dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/nav_header_container"
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary">
+        android:background="@drawable/drawerback"
+
+        android:orientation="vertical">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_profile"
-            android:scaleType="fitCenter"
-            android:layout_centerInParent="true" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/man"
+            android:scaleType="fitEnd"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"/>
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/id_pengguna"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:textSize="15dp"
+            android:textColor="@color/textColorPutih"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/drawerList"

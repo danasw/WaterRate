@@ -5,12 +5,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -41,6 +39,8 @@ import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.view.LineChartView;
 import project.waterate.R;
+import service.NotificationIntentService;
+import utils.SessionManager;
 
 
 public class WaterateFragment extends Fragment implements View.OnClickListener {
@@ -51,12 +51,14 @@ public class WaterateFragment extends Fragment implements View.OnClickListener {
     CircleProgressView mCircleView;
     private LineChartView lineChart;
     ArrayList pointValues = new ArrayList();
-    private ArrayList<String> days = new ArrayList<>();
-    int maxNumberOfPoints = 0;
+    int maxNumberOfPoints = 0, jumlahOrang, konsumInt, jumlahOrangEmer;
+    float paramNotif;
     private FirebaseDatabase mDb;
     private TextView txtWater1, txtWater2, txtPh, txtSuhu, txtKonduk;
-    private RectF drawRect = new RectF();
-//    private ArrayList aL;
+    private SessionManager sessionManager;
+    private ImageView kranButton, airButton;
+    android.content.res.Resources res;
+    private boolean tambah;
 
     public WaterateFragment() {
         // Required empty public constructor
@@ -72,29 +74,34 @@ public class WaterateFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_waterate, container, false);
+        Intent intent = new Intent(getContext(), NotificationIntentService.class);
+        getContext().startService(intent);
+        res = getResources();
+
         mDb = FirebaseDatabase.getInstance();
-        // ArrayList untuk hari dalam seminggu
-        days.add("Senin");
-        days.add("Selasa");
-        days.add("Rabu");
-        days.add("Kamis");
-        days.add("Jumat");
-        days.add("Sabtu");
-        days.add("Minggu");
+        sessionManager = new SessionManager(getContext());
+        jumlahOrang = sessionManager.getSyarat();
+
         //DEKLARASI BUTTON
-        ImageView kranButton = (ImageView) rootView.findViewById(R.id.button_kran);
-        ImageView airButton = (ImageView) rootView.findViewById(R.id.button_air);
+        kranButton = (ImageView) rootView.findViewById(R.id.button_kran);
+        airButton = (ImageView) rootView.findViewById(R.id.button_air);
         txtWater1 = (TextView) rootView.findViewById(R.id.konsumsi_sekarang);
         txtWater2 = (TextView) rootView.findViewById(R.id.konsumsi_maksimal);
-        txtPh = (TextView) rootView.findViewById(R.id.output_suhu);
-        txtSuhu = (TextView) rootView.findViewById(R.id.output_ph);
+        txtPh = (TextView) rootView.findViewById(R.id.output_ph);
+        txtSuhu = (TextView) rootView.findViewById(R.id.output_suhu);
         txtKonduk = (TextView) rootView.findViewById(R.id.output_konduktivitas);
+        emergambar = (ImageView) rootView.findViewById(R.id.image_emergency);
+        emer1 = (TextView)rootView.findViewById(R.id.text_emergency1);
+        emer2 = (TextView)rootView.findViewById(R.id.text_emergency2);
+
         //KLIK BUTTON
         kranButton.setOnClickListener(this);
         airButton.setOnClickListener(this);
-
+        DateTime now = new DateTime();
+        String hariini = now.toString("d~M~yyyy");
+        Log.d(TAG, hariini);
         //akses Db
-        mDb.getReference().child("/data/eKIJ7Kxw4oXUFiYhhObrAejQsC53/28~10~2017/").addValueEventListener(new ValueEventListener() {
+        mDb.getReference().child("/data/"+sessionManager.getUserID()+"/"+hariini+"/").addValueEventListener(new ValueEventListener() {
             //ngakses child
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -110,24 +117,96 @@ public class WaterateFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        //DEKLARASI ALERT USAGE
-        emergambar = (ImageView) rootView.findViewById(R.id.image_emergency);
-        emer1 = (TextView)rootView.findViewById(R.id.text_emergency1);
-        emer2 = (TextView)rootView.findViewById(R.id.text_emergency2);
+        mDb.getReference().child("/data/"+sessionManager.getUserID()+"/"+hariini+"/").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                konsumInt = Integer.parseInt(dataSnapshot.child("debit").getValue().toString());
+                mCircleView.setValueAnimated(konsumInt, 1500);
+                paramNotif = (float)konsumInt/(jumlahOrang);
+                if (paramNotif == 0.75){
+                    NotificationIntentService.processStartNotification();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDb.getReference().child("/profile/"+sessionManager.getUserID()+"/syarat/").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                sessionManager.setUserSyarat(Integer.parseInt(dataSnapshot.getValue().toString()));
+                jumlahOrang = sessionManager.getSyarat();
+                jumlahOrangEmer = jumlahOrang+1;
+                if (tambah){
+                    txtWater2.setText(String.valueOf(jumlahOrangEmer)); //set limit debit air
+                    mCircleView.setMaxValue(jumlahOrangEmer); //value setting
+                    mCircleView.setValueAnimated(konsumInt, 1500);
+                } else {
+                    txtWater2.setText(String.valueOf(jumlahOrang)); //set limit debit air
+                    mCircleView.setMaxValue(jumlahOrang); //value setting
+                    mCircleView.setValueAnimated(konsumInt, 1500);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDb.getReference("/profile/"+sessionManager.getUserID()+"/tambahair/").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                tambah = (boolean) dataSnapshot.getValue();
+//                int tambah = Integer.parseInt(dataSnapshot.getValue().toString());
+//                tambah == 1
+                if (tambah) {
+//                    emergambar.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorCerah));
+//                    emer1.setTextColor(ContextCompat.getColor(getContext(), R.color.colorCerah));
+//                    emer2.setTextColor(ContextCompat.getColor(getContext(), R.color.colorCerah));
+                    emergambar.setColorFilter(res.getColor(R.color.colorCerah));
+//                    emergambar.setColorFilter(getContext().getResources().getColor(R.color.colorCerah));
+                    emer1.setTextColor(res.getColor(R.color.colorCerah));
+                    emer2.setTextColor(res.getColor(R.color.colorCerah));
+//                    airButton.setColorFilter(getContext().getResources().getColor(R.color.Hitam));
+                    txtWater2.setText(String.valueOf(jumlahOrangEmer)); //set limit debit air
+                    mCircleView.setMaxValue(jumlahOrangEmer); //value setting
+                    airButton.setImageAlpha(50);
+                    airButton.setEnabled(false);
+                } else {
+//                    emergambar.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorMuda));
+//                    emer1.setTextColor(ContextCompat.getColor(getContext(), R.color.colorMuda));
+//                    emer2.setTextColor(ContextCompat.getColor(getContext(), R.color.colorMuda));
+                    emergambar.setColorFilter(res.getColor(R.color.colorMuda));
+                    emer1.setTextColor(res.getColor(R.color.colorMuda));
+                    emer2.setTextColor(res.getColor(R.color.colorMuda));
+//                    airButton.setBackgroundResource(R.drawable.pinggirbunder);
+//                    airButton.setImageResource(R.drawable.air);
+                    txtWater2.setText(String.valueOf(jumlahOrang)); //set limit debit air
+                    mCircleView.setMaxValue(jumlahOrang); //value setting
+                    airButton.setImageAlpha(255);
+                    airButton.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         //CHART BUNDER MULAI DISINI
         mCircleView = (CircleProgressView)rootView.findViewById(R.id.circleView);
-        mCircleView.setValueAnimated(50, 1500);      // 50 adalah valuenya
+//        mCircleView.setValueAnimated(0, 1500);
         mCircleView.setOnProgressChangedListener(new CircleProgressView.OnProgressChangedListener() {
             @Override
             public void onProgressChanged(float value) {
                 Log.d(TAG, "Progress Changed: " + value);
             }
         });
-
-        mCircleView.setMaxValue(250); //value setting
-//        mCircleView.setValue(0);
-//        mCircleView.setValueAnimated(24);
 
         mCircleView.setOnTouchListener(new View.OnTouchListener() { //disable progress bar in touch
             @Override
@@ -145,27 +224,15 @@ public class WaterateFragment extends Fragment implements View.OnClickListener {
 
         //gabisa di zoom/geser/scroll
         lineChart.setInteractive(false);
-        lineChart.setZoomType(ZoomType.HORIZONTAL_AND_VERTICAL);
+        lineChart.setZoomEnabled(true);
+        lineChart.setZoomType(ZoomType.HORIZONTAL);
+        lineChart.setZoomLevel(0,0,4);
         lineChart.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
 
-//        ChartData.setAxisXBottom(Axis axisX);
-//        ColumnChartData.setStacked(boolean isStacked);
-//        Line.setStrokeWidth(int strokeWidthDp);
-
-//        List<PointValue> values = new ArrayList<PointValue>();
-//            values.add(new PointValue(0, 100));
-//            values.add(new PointValue(1, 21));
-//            values.add(new PointValue(2, 32));
-//            values.add(new PointValue(3, 43));
-
         List axisXValues = new ArrayList<AxisValue>();
-//            axisXValues.add(new AxisValue(0, "2011".toCharArray()));
-//            axisXValues.add(new AxisValue(1, "2012".toCharArray()));
-//            axisXValues.add(new AxisValue(2, "2013".toCharArray()));
-//            axisXValues.add(new AxisValue(3, "2014".toCharArray()));
-        DateTime now = new DateTime();
+
         for(int i=0;i<7;i++) {
-            String date = now.plusDays(i-1).toString("dd/MM/yyyy");
+            String date = now.plusDays(i-7).toString("dd/MM/yyyy");
             axisXValues.add(new AxisValue(i).setLabel(date));
         }
 
@@ -174,18 +241,14 @@ public class WaterateFragment extends Fragment implements View.OnClickListener {
         axisX.setHasSeparationLine(false);
         axisX.setAutoGenerated(false);
         axisX.setHasTiltedLabels(true);
-        axisX.setMaxLabelChars(4);
-
-//        Axis axisX = new Axis(axisXValues).setName("Axis X");
+        axisX.setTypeface(Typeface.DEFAULT_BOLD);
+        axisX.setMaxLabelChars(10);
 
         List<AxisValue> axisYValues = new ArrayList<AxisValue>();
-//            axisYValues.add(new AxisValue(0).setLabel("0").setValue(0));
-//            axisYValues.add(new AxisValue(1).setLabel("100").setValue(100));
-//            axisYValues.add(new AxisValue(2).setLabel("200").setValue(200));
-//            axisYValues.add(new AxisValue(3).setLabel("300").setValue(300));
+
         Axis axisY = new Axis(axisYValues).setHasLines(true);
 
-        Line line = new Line().setColor(Color.DKGRAY).setCubic(false).setHasPoints(true)
+        Line line = new Line().setColor(Color.argb(255, 138, 173, 186)).setCubic(false).setHasPoints(true)
                 .setHasLabels(true);
         List<Line> lines = new ArrayList<Line>();
         lines.add(line);
@@ -194,24 +257,8 @@ public class WaterateFragment extends Fragment implements View.OnClickListener {
         data.setLines(lines);
         data.setAxisXBottom(axisX);
         data.setAxisYLeft(axisY);
+        data.getAxisXBottom().setTextSize(8);
         data.setBaseValue(Float.NEGATIVE_INFINITY);
-
-//        //keluar nilai pas dipencet
-//        SelectedValue sv = new SelectedValue(0, 1, SelectedValue.SelectedValueType.NONE);
-//        lineChart.selectValue(sv);
-//
-//        //deselect value by setting empty selected value, for example inside handler.postDelay() method
-//        sv.clear();
-//        lineChart.selectValue(sv);
-
-        //set chart data to initialize viewport, otherwise it will be[0,0;0,0]
-//        final Viewport v = new Viewport(lineChart.getMaximumViewport());
-//        v.top =300; //example max value
-//        v.bottom = 0;  //example min value
-//        lineChart.setMaximumViewport(v);
-//        lineChart.setCurrentViewport(v);
-
-//        lineChart.setViewportCalculationEnabled(false);
 
         lineChart.setLineChartData(data);
 
@@ -229,7 +276,7 @@ public class WaterateFragment extends Fragment implements View.OnClickListener {
                     float yValue = (float) (Math.random() * 150);
                     LineChartData data = lineChart.getLineChartData();
                     pointValues.add(new PointValue(i, yValue));
-                    data.getLines().get(0).setValues(new ArrayList<>(pointValues));
+                    data.getLines().get(0).setValues(new ArrayList<PointValue>(pointValues));
                     lineChart.setLineChartData(data);
                     setViewport();
                     try {
@@ -253,7 +300,7 @@ public class WaterateFragment extends Fragment implements View.OnClickListener {
 
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
 
         Fragment fragment = null;
         switch (view.getId()) {
@@ -282,12 +329,15 @@ public class WaterateFragment extends Fragment implements View.OnClickListener {
                 alertDialog.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int which) {
 
-                        emergambar.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorCerah), PorterDuff.Mode.MULTIPLY);
-                        emer1.setTextColor(ContextCompat.getColor(getContext(), R.color.colorCerah));
-                        emer2.setTextColor(ContextCompat.getColor(getContext(), R.color.colorCerah));
+//                        emergambar.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorCerah), PorterDuff.Mode.MULTIPLY);
+//                        emer1.setTextColor(ContextCompat.getColor(getContext(), R.color.colorCerah));
+//                        emer2.setTextColor(ContextCompat.getColor(getContext(), R.color.colorCerah));
+                        emergambar.setColorFilter(getContext().getResources().getColor(R.color.colorCerah));
+                        emer1.setTextColor(getContext().getResources().getColor(R.color.colorCerah));
+                        emer2.setTextColor(getContext().getResources().getColor(R.color.colorCerah));
                         Toast.makeText(getContext(), "Anda sukses menggunakan cadangan air", Toast.LENGTH_SHORT).show();
-//                        break;
-
+                        mDb.getReference("/profile/"+sessionManager.getUserID()+"/").child("tambahair").setValue(true);
+                        airButton.setEnabled(false);
                     }
                 });
 
@@ -296,14 +346,13 @@ public class WaterateFragment extends Fragment implements View.OnClickListener {
                     public void onClick(DialogInterface dialog, int which) {
                         // Write your code here to invoke NO event
 //                        Toast.makeText(getContext(), "Anda", Toast.LENGTH_SHORT).show();
-                        dialog.cancel();
+                        mDb.getReference("/profile/"+sessionManager.getUserID()+"/").child("tambahair").setValue(false);
                     }
                 });
 
                 // Showing Alert Message
                 alertDialog.show();
 
-//             }
         }
 
     }
@@ -324,4 +373,5 @@ public class WaterateFragment extends Fragment implements View.OnClickListener {
     public void onDetach() {
         super.onDetach();
     }
+
 }

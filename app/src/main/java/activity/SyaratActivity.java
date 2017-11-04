@@ -14,6 +14,7 @@ import android.widget.EditText;
 import com.google.firebase.database.FirebaseDatabase;
 
 import project.waterate.R;
+import utils.SessionManager;
 
 public class SyaratActivity extends AppCompatActivity {
 
@@ -22,12 +23,17 @@ public class SyaratActivity extends AppCompatActivity {
     private String emptytext;
     private EditText edtSyarat;
     private FirebaseDatabase mDb;
+    private SessionManager session;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.syarat);
-
+        session = new SessionManager(this);
+        if (session.isSyaratExist()) {
+            startActivity(new Intent(SyaratActivity.this, MainActivity.class));
+            finish();
+        }
         mDb = FirebaseDatabase.getInstance();
         final EditText inputkeluarga = (EditText)findViewById(R.id.input_keluarga);
         buttonSyarat = (Button)findViewById(R.id.button_inputkeluarga);
@@ -36,9 +42,12 @@ public class SyaratActivity extends AppCompatActivity {
         buttonSyarat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                mDb.getReference().child("eKIJ7Kxw4oXUFiYhhObrAejQsC53").setValue(inputkeluarga.getText().toString());
+                int syarat = Integer.parseInt(inputkeluarga.getText().toString());
+                mDb.getReference().child("/profile/"+session.getUserID()+"/syarat/")
+                        .setValue(syarat);
+                session.setUserSyarat(syarat);
                 startActivity(new Intent(SyaratActivity.this, MainActivity.class));
+                finish();
 
             }
         });
@@ -69,13 +78,13 @@ public class SyaratActivity extends AppCompatActivity {
 
             }
         });
-//        emptytext = inputkeluarga.getText().toString();
-//        if (emptytext.matches("")){
+// emptytext = inputkeluarga.getText().toString();
+// if (emptytext.matches("")){
 //
-//            Toast.makeText(this,"Mohon isi data dengan benar!", Toast.LENGTH_SHORT).show();
-//            return;
+// Toast.makeText(this,"Mohon isi data dengan benar!", Toast.LENGTH_SHORT).show();
+// return;
 //
-//        }
+// }
 
     }
 
