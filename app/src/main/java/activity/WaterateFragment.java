@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.constraint.solver.widgets.Snapshot;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -59,6 +60,8 @@ public class WaterateFragment extends Fragment implements View.OnClickListener {
     private ImageView kranButton, airButton;
     android.content.res.Resources res;
     private boolean tambah;
+    private int draw = 0;
+    private DateTime now;
 
     public WaterateFragment() {
         // Required empty public constructor
@@ -97,7 +100,7 @@ public class WaterateFragment extends Fragment implements View.OnClickListener {
         //KLIK BUTTON
         kranButton.setOnClickListener(this);
         airButton.setOnClickListener(this);
-        DateTime now = new DateTime();
+        now = new DateTime();
         String hariini = now.toString("d~M~yyyy");
         Log.d(TAG, hariini);
         //akses Db
@@ -269,24 +272,34 @@ public class WaterateFragment extends Fragment implements View.OnClickListener {
 
     //method drawgraph
     private void drawGraph() {
-        new Thread(new Runnable() {
+        mDb.getReference("/data/"+sessionManager.getUserID()).addValueEventListener(new ValueEventListener() {
             @Override
-            public void run() {
-                for (int i = 0; i < 7; ++i) {
-                    float yValue = (float) (Math.random() * 150);
-                    LineChartData data = lineChart.getLineChartData();
-                    pointValues.add(new PointValue(i, yValue));
-                    data.getLines().get(0).setValues(new ArrayList<PointValue>(pointValues));
-                    lineChart.setLineChartData(data);
-                    setViewport();
-                    try {
-                        Thread.sleep(35);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot s : dataSnapshot.getChildren()) {
+                    if (draw < 7) {
+                        Log.d(TAG, s
+                                .child(now.plusDays(draw-7).toString("d~M~yyyy"))
+                                .child("debit")
+                                .getValue().toString());
+                        float yValue = Float.parseFloat(String.valueOf(dataSnapshot
+                                .child(now.plusDays(draw-7).toString("d~M~yyyy"))
+                                .child("debit")
+                                .getValue()));
+                        LineChartData data = lineChart.getLineChartData();
+                        pointValues.add(new PointValue(draw, yValue));
+                        data.getLines().get(0).setValues(new ArrayList<PointValue>(pointValues));
+                        lineChart.setLineChartData(data);
+                        setViewport();
                     }
+                    draw++;
                 }
             }
-        }).start();
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void setViewport() {
